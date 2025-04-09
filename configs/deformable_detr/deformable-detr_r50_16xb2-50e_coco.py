@@ -2,11 +2,31 @@ _base_ = [
     '../_base_/datasets/coco_detection.py', '../_base_/default_runtime.py'
 ]
 model = dict(
-    type='DeformableDETR',
+    
+    # 修改type类型为 DeformableDETRWithDistillation #
+    
+    type='DeformableDETRWithDistillation',
+    
     num_queries=300,
     num_feature_levels=4,
     with_box_refine=False,
     as_two_stage=False,
+    
+    # 加载教师模型 
+    teacher_model=dict(
+        type='DeformableDETR',  # 教师模型的类型
+        backbone=dict(
+            type='ResNet',  # 教师模型的骨干网络
+            depth=50,  # ResNet50
+            # 教师模型结构配置...
+        ),
+        load_from='../../teacher.pth',  # 加载预训练的教师模型权重
+    ),
+    distillation_loss_weight=0.5,  # 蒸馏损失的权重
+    T=10,  # 蒸馏温度
+    
+    
+    
     data_preprocessor=dict(
         type='DetDataPreprocessor',
         mean=[123.675, 116.28, 103.53],
@@ -153,4 +173,9 @@ param_scheduler = [
 # NOTE: `auto_scale_lr` is for automatically scaling LR,
 # USER SHOULD NOT CHANGE ITS VALUES.
 # base_batch_size = (16 GPUs) x (2 samples per GPU)
-auto_scale_lr = dict(base_batch_size=32)
+auto_scale_lr = dict(base_batch_size=4)
+
+
+
+
+# 现在需要一个教师模型，我还需要训练一个教师模型才行

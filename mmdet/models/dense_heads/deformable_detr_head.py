@@ -4,6 +4,7 @@ from typing import Dict, List, Tuple
 
 import torch
 import torch.nn as nn
+import torch.nn.functional as F
 from mmcv.cnn import Linear
 from mmengine.model import bias_init_with_prob, constant_init
 from torch import Tensor
@@ -232,7 +233,8 @@ class DeformableDETRHead(DETRHead):
                                          all_layers_bbox_preds,
                                          batch_gt_instances, batch_img_metas,
                                          batch_gt_instances_ignore)
-
+        
+    
         # loss of proposal generated from encode feature map.
         if enc_cls_scores is not None:
             proposal_gt_instances = copy.deepcopy(batch_gt_instances)
@@ -247,6 +249,12 @@ class DeformableDETRHead(DETRHead):
             loss_dict['enc_loss_cls'] = enc_loss_cls
             loss_dict['enc_loss_bbox'] = enc_losses_bbox
             loss_dict['enc_loss_iou'] = enc_losses_iou
+            
+           
+        # --------------------------
+        loss_dict['logits'] = all_layers_cls_scores
+        #------------------
+        
         return loss_dict
 
     def predict(self,

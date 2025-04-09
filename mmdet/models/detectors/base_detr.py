@@ -95,9 +95,19 @@ class DetectionTransformer(BaseDetector, metaclass=ABCMeta):
         Returns:
             dict: A dictionary of loss components
         """
+        
+        # 打印信息
+#         print("----------------------------1-------------------------------")
+#         print(f"batch_inputs: {batch_inputs}")
+#         print(f"batch_data_samples: {batch_data_samples}")
+#         print("----------------------------2-------------------------------")
+        
+#         # -------------------------------------------------------
+        
         img_feats = self.extract_feat(batch_inputs)
         head_inputs_dict = self.forward_transformer(img_feats,
                                                     batch_data_samples)
+        
         losses = self.bbox_head.loss(
             **head_inputs_dict, batch_data_samples=batch_data_samples)
 
@@ -130,6 +140,7 @@ class DetectionTransformer(BaseDetector, metaclass=ABCMeta):
             - bboxes (Tensor): Has a shape (num_instances, 4),
               the last dimension 4 arrange as (x1, y1, x2, y2).
         """
+        
         img_feats = self.extract_feat(batch_inputs)
         head_inputs_dict = self.forward_transformer(img_feats,
                                                     batch_data_samples)
@@ -158,6 +169,7 @@ class DetectionTransformer(BaseDetector, metaclass=ABCMeta):
         Returns:
             tuple[Tensor]: A tuple of features from ``bbox_head`` forward.
         """
+        
         img_feats = self.extract_feat(batch_inputs)
         head_inputs_dict = self.forward_transformer(img_feats,
                                                     batch_data_samples)

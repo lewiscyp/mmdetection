@@ -49,7 +49,10 @@ class DeformableDETR(DetectionTransformer):
         self.with_box_refine = with_box_refine
         self.as_two_stage = as_two_stage
         self.num_feature_levels = num_feature_levels
-
+        
+        # ----------------------
+        # 将assert注释掉了！！！！！！！！！！！！
+        # ---------------------------
         if bbox_head is not None:
             assert 'share_pred_layer' not in bbox_head and \
                    'num_pred_layer' not in bbox_head and \
@@ -342,6 +345,7 @@ class DeformableDETR(DetectionTransformer):
         head_inputs_dict = dict(
             enc_outputs_class=enc_outputs_class,
             enc_outputs_coord=enc_outputs_coord) if self.training else dict()
+        
         return decoder_inputs_dict, head_inputs_dict
 
     def forward_decoder(self, query: Tensor, query_pos: Tensor, memory: Tensor,
@@ -394,9 +398,11 @@ class DeformableDETR(DetectionTransformer):
             valid_ratios=valid_ratios,
             reg_branches=self.bbox_head.reg_branches
             if self.with_box_refine else None)
+        
         references = [reference_points, *inter_references]
         decoder_outputs_dict = dict(
             hidden_states=inter_states, references=references)
+        
         return decoder_outputs_dict
 
     @staticmethod
@@ -503,6 +509,7 @@ class DeformableDETR(DetectionTransformer):
         output_memory = self.memory_trans_fc(output_memory)
         output_memory = self.memory_trans_norm(output_memory)
         # [bs, sum(hw), 2]
+        
         return output_memory, output_proposals
 
     @staticmethod

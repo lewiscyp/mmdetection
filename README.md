@@ -18,6 +18,9 @@ This project focuses on robust object detection under the missing modality scena
 - **Prototype Distillation Loss**: Transfers semantic structure by matching category-level feature prototypes.
 - **Transfer Learning**: Trains on one modality and adapts to another via fine-tuning.
 
+## 🚀 Traning log and pth file are on Baidu netdisk
+- **Location**: https://pan.baidu.com/s/1MjHzUOWfnpkQ2Dxu33Bw8A extraction code: 4dii
+
 ## ⚙️ Environment
 
 - Python 3.8+

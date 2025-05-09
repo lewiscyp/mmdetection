@@ -18,7 +18,13 @@ This project focuses on robust object detection under the missing modality scena
 - **Prototype Distillation Loss**: Transfers semantic structure by matching category-level feature prototypes.
 - **Transfer Learning**: Trains on one modality and adapts to another via fine-tuning.
 
-## 🚀 Traning log and pth file are on Baidu netdisk
+## 🚀  How to use
+- **Notes**: Make sure in the mmdetection directory 
+- **Training the model**: python tools/train.py work_dirs/deformable-detr_r50_16xb2-50e_coco.py
+- **Change model config file**: Change the file in work_dirs/deformable-detr_r50_16xb2-50e_coco.py
+- **Results**: Traning results are in the directory of work_dirs/deformable-detr_r50_16xb2-50e_coco.py
+
+## 📊 Trainng log and pth file are on Baidu netdisk
 - **Location**: https://pan.baidu.com/s/1MjHzUOWfnpkQ2Dxu33Bw8A extraction code: 4dii
 
 ## ⚙️ Environment
